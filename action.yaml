@@ -2,6 +2,9 @@ name: Delete NPM dependencies cache
 description: Delete cache for the npm-run-script action, under which dependencies (e.g. node_modules and additional paths) are stored.
 
 inputs:
+  node-version:
+    description: The Node.js version used in the workflow
+    required: true
   working-directory:
     description: The working directory which contains the '**/package-lock.json' files
     default: '.'
@@ -20,6 +23,7 @@ runs:
     - id: cache-key
       uses: kt-actions/npm-run-script-cache-key@v1
       with:
+        node-version: ${{ inputs.node-version }}
         working-directory: ${{ inputs.working-directory }}
 
     - continue-on-error: true
